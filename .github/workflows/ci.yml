@@ -42,11 +42,3 @@ jobs:
     - run: npm run cover:merge && npm run cover:report
 
     - uses: codecov/codecov-action@v1
-
-    - run: npm run build
-
-    - uses: amondnet/vercel-action@v19
-      with:
-        vercel-token: ${{ secrets.VERCEL_TOKEN }}
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        working-directory: build
