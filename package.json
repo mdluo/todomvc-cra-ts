@@ -3,12 +3,35 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts -r @cypress/instrument-cra start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cover:clean": "rm -rf .nyc_output coverage",
+    "cover:jest": "CI=true npm test -- --coverage",
+    "cover:cypress": "cypress run",
+    "precover:merge": "cp coverage/coverage-final.json .nyc_output",
+    "cover:merge": "nyc merge .nyc_output coverage/coverage.json",
+    "cover:report": "nyc report --reporter=lcov --reporter=text-summary",
+    "cover": "npm run cover:merge && npm run cover:report && open coverage/lcov-report/index.html"
+  },
+  "jest": {
+    "coverageReporters": ["json"]
+  },
+  "nyc": {
+    "all": true,
+    "extension": [
+      ".ts",
+      ".tsx"
+    ],
+    "include": [
+      "src/**"
+    ],
+    "reporter": []
   },
   "dependencies": {
+    "@cypress/code-coverage": "^3.8.1",
+    "@cypress/instrument-cra": "^1.3.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -20,6 +43,7 @@
     "@typescript-eslint/eslint-plugin": "^3.9.1",
     "@typescript-eslint/parser": "^3.9.1",
     "classnames": "^2.2.6",
+    "cypress": "^5.0.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-cypress": "^2.11.1",
     "eslint-plugin-prettier": "^3.1.4",
