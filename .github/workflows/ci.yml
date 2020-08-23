@@ -18,7 +18,9 @@ jobs:
 
     - uses: actions/cache@v2
       with:
-        path: ~/.npm
+        path: |
+          ~/.cache
+          ~/.npm
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
           ${{ runner.os }}-node-
@@ -27,17 +29,10 @@ jobs:
 
     - run: npm run cover:jest
 
-    - uses: cypress-io/github-action@v2
-      with:
-        install: false
-        record: true
-        start: npm start
-        wait-on: http://localhost:3000
+    - run: npm start & npx wait-on http://localhost:3000 && npx cypress run --record
       env:
-          # pass the Dashboard record key as an environment variable
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          # pass GitHub token to allow accurately detecting a build vs a re-run build
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - run: npm run cover:merge && npm run cover:report
 
