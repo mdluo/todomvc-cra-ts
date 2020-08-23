@@ -16,7 +16,9 @@
     "cover": "npm run cover:merge && npm run cover:report && open coverage/lcov-report/index.html"
   },
   "jest": {
-    "coverageReporters": ["json"]
+    "coverageReporters": [
+      "json"
+    ]
   },
   "nyc": {
     "all": true,
@@ -53,6 +55,7 @@
     "react-scripts": "3.4.3",
     "todomvc-app-css": "^2.3.0",
     "todomvc-common": "^1.0.5",
-    "typescript": "^3.7.5"
+    "typescript": "^3.7.5",
+    "wait-on": "^5.2.0"
   }
 }
