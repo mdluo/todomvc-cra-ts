@@ -1,0 +1,24 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint",
+    "cypress",
+    "prettier"
+  ],
+  "extends": [
+    "react-app",
+    "plugin:cypress/recommended",
+    "prettier/@typescript-eslint",
+    "prettier/react",
+    "prettier"
+  ],
+  "env": {
+    "node": true,
+    "es6": true,
+    "jest": true,
+    "cypress/globals": true
+  },
+  "rules": {
+    "prettier/prettier": "error"
+  }
+}
