@@ -27,6 +27,22 @@ jobs:
 
     - run: npm ci
 
+    - run: npm run cover:jest
+
+    - uses: cypress-io/github-action@v2
+      with:
+        install: false
+        record: true
+        start: npm start
+        wait-on: http://localhost:3000
+      env:
+        CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - run: npm run cover:merge && npm run cover:report
+
+    - uses: codecov/codecov-action@v1
+
     - run: npm run build
 
     - uses: amondnet/vercel-action@v19
